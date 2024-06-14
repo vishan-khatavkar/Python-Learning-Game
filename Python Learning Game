@@ -1,0 +1,233 @@
+import tkinter as tk
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
+
+class DataScienceGame:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Data Science Adventure Game")
+        self.root.configure(bg='black')
+        self.root.geometry("800x600")
+        
+        self.text_widget = tk.Text(root, bg='black', fg='white', font=('Courier', 12), wrap='word')
+        self.text_widget.pack(expand=True, fill='both')
+        
+        self.entry = tk.Entry(root, bg='black', fg='white', font=('Courier', 12))
+        self.entry.pack(fill='x')
+        self.entry.bind('<Return>', self.process_input)
+        
+        self.text_widget.insert(tk.END, "Welcome to the Data Science Adventure Game!\n")
+        self.text_widget.insert(tk.END, "You are an aspiring data scientist who has been hired by a top research lab.\n")
+        self.text_widget.insert(tk.END, "Your mission is to help the lab analyze their data and make important discoveries.\n")
+        self.text_widget.insert(tk.END, "Are you ready to start your journey? (yes/no)\n")
+        
+        self.level = 0
+        self.step = 0
+        
+        # Set focus to the entry box
+        self.entry.focus()
+
+    def process_input(self, event):
+        user_input = self.entry.get().strip().lower()
+        self.entry.delete(0, tk.END)
+        self.text_widget.insert(tk.END, f"> {user_input}\n")
+        
+        if self.level == 0:
+            if user_input == 'yes':
+                self.level_1()
+            else:
+                self.text_widget.insert(tk.END, "Maybe next time! Goodbye.\n")
+        elif self.level == 1:
+            self.handle_level_1(user_input)
+        elif self.level == 2:
+            self.handle_level_2(user_input)
+        elif self.level == 3:
+            self.handle_level_3(user_input)
+        elif self.level == 4:
+            self.handle_level_4(user_input)
+        elif self.level == 5:
+            self.handle_level_5(user_input)
+
+    def level_1(self):
+        self.level = 1
+        self.step = 1
+        self.text_widget.insert(tk.END, "\nLevel 1: Python Basics\n")
+        self.text_widget.insert(tk.END, "Your first task is to understand the basics of Python programming.\n")
+        self.text_widget.insert(tk.END, "\nTask 1: Assign a value to a variable\n")
+        self.text_widget.insert(tk.END, "Type the following code: x = 5\n")
+
+    def handle_level_1(self, user_input):
+        if self.step == 1:
+            try:
+                exec(user_input, globals())
+                if 'x' in globals() and x == 5:
+                    self.text_widget.insert(tk.END, "Great! You've assigned the value 5 to the variable x.\n")
+                    self.step = 2
+                    self.text_widget.insert(tk.END, "\nTask 2: Perform a basic arithmetic operation\n")
+                    self.text_widget.insert(tk.END, "Type the following code: y = x * 2\n")
+                else:
+                    self.text_widget.insert(tk.END, "It seems you didn't assign the value correctly. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+        elif self.step == 2:
+            try:
+                exec(user_input, globals())
+                if 'y' in globals() and y == 10:
+                    self.text_widget.insert(tk.END, "Great! You've performed a basic arithmetic operation.\n")
+                    self.text_widget.insert(tk.END, "\nCongratulations! You've completed Level 1.\n")
+                    self.level_2()
+                else:
+                    self.text_widget.insert(tk.END, "It seems there was an error in your operation. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+
+    def level_2(self):
+        self.level = 2
+        self.step = 1
+        self.text_widget.insert(tk.END, "\nLevel 2: NumPy\n")
+        self.text_widget.insert(tk.END, "Now that you know the basics of Python, let's move on to NumPy.\n")
+        self.text_widget.insert(tk.END, "NumPy is a powerful library for numerical computing in Python.\n")
+        self.text_widget.insert(tk.END, "\nTask 1: Create a NumPy array\n")
+        self.text_widget.insert(tk.END, "Type the following code: arr = np.array([1, 2, 3, 4, 5])\n")
+
+    def handle_level_2(self, user_input):
+        if self.step == 1:
+            try:
+                exec(user_input, globals())
+                if 'arr' in globals() and np.array_equal(arr, np.array([1, 2, 3, 4, 5])):
+                    self.text_widget.insert(tk.END, "Great! You've created a NumPy array.\n")
+                    self.step = 2
+                    self.text_widget.insert(tk.END, "\nTask 2: Perform an operation on the array\n")
+                    self.text_widget.insert(tk.END, "Type the following code: arr = arr * 2\n")
+                else:
+                    self.text_widget.insert(tk.END, "It seems you didn't create the array correctly. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+        elif self.step == 2:
+            try:
+                exec(user_input, globals())
+                if 'arr' in globals() and np.array_equal(arr, np.array([2, 4, 6, 8, 10])):
+                    self.text_widget.insert(tk.END, "Great! You've performed an operation on the NumPy array.\n")
+                    self.text_widget.insert(tk.END, "\nCongratulations! You've completed Level 2.\n")
+                    self.level_3()
+                else:
+                    self.text_widget.insert(tk.END, "It seems there was an error in your operation. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+
+    def level_3(self):
+        self.level = 3
+        self.step = 1
+        self.text_widget.insert(tk.END, "\nLevel 3: Pandas\n")
+        self.text_widget.insert(tk.END, "Now that you know NumPy, let's move on to Pandas.\n")
+        self.text_widget.insert(tk.END, "Pandas is a powerful library for data manipulation and analysis in Python.\n")
+        self.text_widget.insert(tk.END, "\nTask 1: Create a Pandas DataFrame\n")
+        self.text_widget.insert(tk.END, "Type the following code: data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]}\ndf = pd.DataFrame(data)\n")
+
+    def handle_level_3(self, user_input):
+        if self.step == 1:
+            try:
+                exec(user_input, globals())
+                if 'df' in globals() and isinstance(df, pd.DataFrame):
+                    self.text_widget.insert(tk.END, "Great! You've created a Pandas DataFrame.\n")
+                    self.step = 2
+                    self.text_widget.insert(tk.END, "\nTask 2: Perform an operation on the DataFrame\n")
+                    self.text_widget.insert(tk.END, "Type the following code: df['Age'] = df['Age'] + 1\n")
+                else:
+                    self.text_widget.insert(tk.END, "It seems you didn't create the DataFrame correctly. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+        elif self.step == 2:
+            try:
+                exec(user_input, globals())
+                if 'df' in globals() and df['Age'].equals(pd.Series([26, 31, 36])):
+                    self.text_widget.insert(tk.END, "Great! You've performed an operation on the Pandas DataFrame.\n")
+                    self.text_widget.insert(tk.END, "\nCongratulations! You've completed Level 3.\n")
+                    self.level_4()
+                else:
+                    self.text_widget.insert(tk.END, "It seems there was an error in your operation. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+
+    def level_4(self):
+        self.level = 4
+        self.step = 1
+        self.text_widget.insert(tk.END, "\nLevel 4: Matplotlib\n")
+        self.text_widget.insert(tk.END, "Now that you know Pandas, let's move on to Matplotlib.\n")
+        self.text_widget.insert(tk.END, "Matplotlib is a powerful library for creating visualizations in Python.\n")
+        self.text_widget.insert(tk.END, "\nTask 1: Create a simple plot\n")
+        self.text_widget.insert(tk.END, "Type the following code: plt.plot([1, 2, 3, 4], [1, 4, 9, 16])\nplt.show()\n")
+
+    def handle_level_4(self, user_input):
+        if self.step == 1:
+            try:
+                exec(user_input, globals())
+                self.text_widget.insert(tk.END, "Great! You've created a simple plot using Matplotlib.\n")
+                self.step = 2
+                self.text_widget.insert(tk.END, "\nTask 2: Customize the plot\n")
+                self.text_widget.insert(tk.END, "Type the following code: plt.plot([1, 2, 3, 4], [1, 4, 9, 16], 'ro-')\nplt.title('Sample Plot')\nplt.xlabel('X Axis')\nplt.ylabel('Y Axis')\nplt.show()\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+        elif self.step == 2:
+            try:
+                exec(user_input, globals())
+                self.text_widget.insert(tk.END, "Great! You've customized the plot using Matplotlib.\n")
+                self.text_widget.insert(tk.END, "\nCongratulations! You've completed Level 4.\n")
+                self.level_5()
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+
+    def level_5(self):
+        self.level = 5
+        self.step = 1
+        self.text_widget.insert(tk.END, "\nLevel 5: Machine Learning\n")
+        self.text_widget.insert(tk.END, "Now that you know Matplotlib, let's move on to Machine Learning.\n")
+        self.text_widget.insert(tk.END, "You will learn how to build and evaluate machine learning models.\n")
+        self.text_widget.insert(tk.END, "\nTask 1: Build a Linear Regression Model\n")
+        self.text_widget.insert(tk.END, "Type the following code: \nfrom sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nX = [[1], [2], [3], [4]]\ny = [1, 4, 9, 16]\nmodel.fit(X, y)\npredictions = model.predict([[5]])\nprint(predictions)\n")
+
+    def handle_level_5(self, user_input):
+        if self.step == 1:
+            try:
+                exec(user_input, globals())
+                if 'predictions' in globals() and len(predictions) > 0:
+                    self.text_widget.insert(tk.END, "Great! You've built and used a Linear Regression model.\n")
+                    self.step = 2
+                    self.text_widget.insert(tk.END, "\nTask 2: Build a Random Forest Classifier\n")
+                    self.text_widget.insert(tk.END, "Type the following code: \nfrom sklearn.ensemble import RandomForestClassifier\nmodel = RandomForestClassifier()\nX = [[1], [2], [3], [4]]\ny = [0, 1, 0, 1]\nmodel.fit(X, y)\npredictions = model.predict([[5]])\nprint(predictions)\n")
+                else:
+                    self.text_widget.insert(tk.END, "It seems there was an error in your model. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+        elif self.step == 2:
+            try:
+                exec(user_input, globals())
+                if 'predictions' in globals() and len(predictions) > 0:
+                    self.text_widget.insert(tk.END, "Great! You've built and used a Random Forest Classifier.\n")
+                    self.step = 3
+                    self.text_widget.insert(tk.END, "\nTask 3: Build an XGBoost Classifier\n")
+                    self.text_widget.insert(tk.END, "Type the following code: \nfrom xgboost import XGBClassifier\nmodel = XGBClassifier()\nX = [[1], [2], [3], [4]]\ny = [0, 1, 0, 1]\nmodel.fit(X, y)\npredictions = model.predict([[5]])\nprint(predictions)\n")
+                else:
+                    self.text_widget.insert(tk.END, "It seems there was an error in your model. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+        elif self.step == 3:
+            try:
+                exec(user_input, globals())
+                if 'predictions' in globals() and len(predictions) > 0:
+                    self.text_widget.insert(tk.END, "Great! You've built and used an XGBoost Classifier.\n")
+                    self.text_widget.insert(tk.END, "\nCongratulations! You've completed Level 5 and the Data Science Adventure Game!\n")
+                    tk.messagebox.showinfo("Congratulations", "You've completed the Data Science Adventure Game!")
+                else:
+                    self.text_widget.insert(tk.END, "It seems there was an error in your model. Try again.\n")
+            except Exception as e:
+                self.text_widget.insert(tk.END, f"There was an error in your code: {e}. Try again.\n")
+
+# Start the game
+root = tk.Tk()
+game = DataScienceGame(root)
+root.mainloop()
